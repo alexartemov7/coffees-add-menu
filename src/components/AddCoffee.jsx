@@ -1,7 +1,12 @@
 import './addCoffee.css'
 
 export default function AddCoffee() {
-
+    const getCoffees = () => {
+        fetch('https://first-deployed-api-aa.web.app/coffees')
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(alert)
+    }
     const handleSubmit = (e) => {
     e.preventDefault()
     // gather form data
@@ -23,7 +28,17 @@ export default function AddCoffee() {
             body: JSON.stringify(newCoffee),
         })
          .then(res => res.json())
-         .then(message => console.log(message))
+         .then(data => //check if message is "Success!""
+            {if (data.message === "Success!") {
+                //our coffee was added successfully
+                // let's clear the form
+                e.target.name.value = ''
+                e.target.name.value = ''
+                e.target.name.value = ''
+                // and the get an updated list of coffees...
+                getCoffees()
+            }
+        })
          .catch(alert)
     }
 
