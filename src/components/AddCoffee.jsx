@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './addCoffee.css'
 
 export default function AddCoffee({setCoffees}) {
@@ -7,6 +8,11 @@ export default function AddCoffee({setCoffees}) {
         .then(data => setCoffees(data))
         .catch(alert)
     }
+
+    useEffect(() => {
+        getCoffees()
+    }, []) //one time, after the component mounts, get the coffees
+
     const handleSubmit = (e) => {
     e.preventDefault()
     // gather form data
@@ -33,8 +39,8 @@ export default function AddCoffee({setCoffees}) {
                 //our coffee was added successfully
                 // let's clear the form
                 e.target.name.value = ''
-                e.target.name.value = ''
-                e.target.name.value = ''
+                e.target.recipe.value = ''
+                e.target.description.value = ''
                 // and the get an updated list of coffees...
                 getCoffees()
             }
